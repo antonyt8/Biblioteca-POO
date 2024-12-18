@@ -1,7 +1,3 @@
-Claro! Aqui está um exemplo de um arquivo `README.md` para o seu projeto, baseado no conteúdo fornecido:
-
----
-
 # Biblioteca POO Java
 
 Este é um projeto de exemplo que implementa uma aplicação de gerenciamento de biblioteca utilizando Programação Orientada a Objetos (POO) em Java. O projeto inclui classes para modelar itens de biblioteca, usuários, e operações de banco de dados.
@@ -17,13 +13,23 @@ O projeto está organizado da seguinte forma:
   - **dao**: Contém as classes de acesso a dados (Data Access Objects).
     - `ItemDAO.java`: Acesso a dados para itens da biblioteca.
     - `UsuarioDAO.java`: Acesso a dados para usuários da biblioteca.
+  - **exceptions**: Contém as classes de exceções personalizadas.
+    - `ItemNaoEncontradoException.java`: Exceção lançada quando um item não é encontrado.
+    - `UsuarioNaoEncontradoException.java`: Exceção lançada quando um usuário não é encontrado.
   - **model**: Contém as classes de modelo.
+    - `Entidade.java`: Classe base para entidades.
     - `Item.java`: Representa um item da biblioteca.
+    - `Persistivel.java`: Interface para entidades que podem ser persistidas.
     - `Usuario.java`: Representa um usuário da biblioteca.
   - **view**: Contém as classes relacionadas à interface do usuário.
-    - `MenuPrincipal.java`: Interface principal do sistema.
     - `ConexaoBanco.java`: Classe para gerenciar conexões com o banco de dados.
     - `InicializadorBanco.java`: Classe para inicializar o banco de dados.
+
+- **test**: Contém os testes unitários para as classes do projeto.
+  - `ItemBOTest.java`: Testes para a classe `ItemBO`.
+  - `ItemDAOTest.java`: Testes para a classe `ItemDAO`.
+  - `UsuarioBOTest.java`: Testes para a classe `UsuarioBO`.
+  - `UsuarioDAOTest.java`: Testes para a classe `UsuarioDAO`.
 
 - **lib**: Contém as bibliotecas externas utilizadas no projeto.
   - `sqlite-jdbc-3.47.1.0.jar`: Driver JDBC para SQLite.
@@ -64,7 +70,3 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 ## Licença
 
 Este projeto está licenciado sob a licença [MIT](LICENSE).
-
----
-
-Este `README.md` fornece uma visão geral do projeto, sua estrutura e como executá-lo. Você pode personalizá-lo conforme necessário para incluir mais detalhes ou instruções específicas. Se precisar de mais ajuda, é só perguntar! 😊
