@@ -2,6 +2,7 @@ package biblioteca.model;
 
 import biblioteca.bo.UsuarioBO;
 import biblioteca.exceptions.UsuarioNaoEncontradoException;
+
 import java.sql.SQLException;
 
 public class Usuario extends Entidade implements Persistivel {

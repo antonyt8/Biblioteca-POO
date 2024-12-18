@@ -2,17 +2,17 @@ package biblioteca.test;
 
 import biblioteca.dao.UsuarioDAO;
 import biblioteca.model.Usuario;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UsuarioDAOTest {
     private UsuarioDAO usuarioDAO;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         usuarioDAO = new UsuarioDAO();
     }

@@ -2,7 +2,6 @@ package biblioteca.dao;
 
 import biblioteca.ConexaoBanco;
 import biblioteca.model.Usuario;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +22,7 @@ public class UsuarioDAO {
         }
     }
 
-    // READ (Listar todos os usuários)
+    // READ
     public List<Usuario> listarUsuarios() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM Usuarios";
