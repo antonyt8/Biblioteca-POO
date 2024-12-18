@@ -1,29 +1,23 @@
 package biblioteca.model;
 
-public class Item {
-    private int id;
+import biblioteca.bo.ItemBO;
+import java.sql.SQLException;
+
+public class Item extends Entidade implements Persistivel {
     private String tipo;
     private String titulo;
     private String autor;
     private int edicao;
 
-    // Construtores, getters e setters
     public Item(int id, String tipo, String titulo, String autor, int edicao) {
-        this.id = id;
+        super(id);
         this.tipo = tipo;
         this.titulo = titulo;
         this.autor = autor;
         this.edicao = edicao;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Getters e Setters
     public String getTipo() {
         return tipo;
     }
@@ -54,5 +48,36 @@ public class Item {
 
     public void setEdicao(int edicao) {
         this.edicao = edicao;
+    }
+
+    // Implementação da interface Persistivel
+    @Override
+    public void salvar() {
+        try {
+            ItemBO itemBO = new ItemBO();
+            itemBO.adicionarItem(this);
+        } catch (SQLException e) {
+            System.err.println("Erro ao salvar item: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void atualizar() {
+        try {
+            ItemBO itemBO = new ItemBO();
+            itemBO.atualizarItem(this);
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar item: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deletar() {
+        try {
+            ItemBO itemBO = new ItemBO();
+            itemBO.deletarItem(this.getId());
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar item: " + e.getMessage());
+        }
     }
 }

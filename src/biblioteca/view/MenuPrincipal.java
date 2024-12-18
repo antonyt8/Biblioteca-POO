@@ -1,10 +1,10 @@
 package biblioteca.view;
 
-import biblioteca.dao.ItemDAO;
-import biblioteca.dao.UsuarioDAO;
+import biblioteca.bo.ItemBO;
+import biblioteca.bo.UsuarioBO;
+import biblioteca.exceptions.UsuarioNaoEncontradoException;
 import biblioteca.model.Item;
 import biblioteca.model.Usuario;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class MenuPrincipal {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ItemDAO itemDAO = new ItemDAO();
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ItemBO itemBO = new ItemBO();
+        UsuarioBO usuarioBO = new UsuarioBO();
 
         while (true) {
             System.out.println("\n=== MENU PRINCIPAL ===");
@@ -41,10 +41,10 @@ public class MenuPrincipal {
                         String autor = scanner.nextLine();
                         System.out.print("Edição: ");
                         int edicao = scanner.nextInt();
-                        itemDAO.adicionarItem(new Item(0, tipo, titulo, autor, edicao));
+                        itemBO.adicionarItem(new Item(0, tipo, titulo, autor, edicao));
                         break;
                     case 2:
-                        List<Item> itens = itemDAO.listarItens();
+                        List<Item> itens = itemBO.listarItens();
                         itens.forEach(item -> System.out.println(item.getId() + " - " + item.getTitulo()));
                         break;
                     case 3:
@@ -53,22 +53,22 @@ public class MenuPrincipal {
                         scanner.nextLine();
                         System.out.print("Novo Título: ");
                         String novoTitulo = scanner.nextLine();
-                        itemDAO.atualizarItem(new Item(idItem, null, novoTitulo, null, 0));
+                        itemBO.atualizarItem(new Item(idItem, null, novoTitulo, null, 0));
                         break;
                     case 4:
                         System.out.print("ID do Item: ");
                         int idDelete = scanner.nextInt();
-                        itemDAO.deletarItem(idDelete);
+                        itemBO.deletarItem(idDelete);
                         break;
                     case 5:
                         System.out.print("Nome do Usuário: ");
                         String nome = scanner.nextLine();
                         System.out.print("Matrícula: ");
                         String matricula = scanner.nextLine();
-                        usuarioDAO.adicionarUsuario(new Usuario(0, nome, matricula));
+                        usuarioBO.adicionarUsuario(new Usuario(0, nome, matricula));
                         break;
                     case 6:
-                        List<Usuario> usuarios = usuarioDAO.listarUsuarios();
+                        List<Usuario> usuarios = usuarioBO.listarUsuarios();
                         usuarios.forEach(usuario -> System.out.println(usuario.getId() + " - " + usuario.getNome()));
                         break;
                     case 7:
@@ -77,12 +77,12 @@ public class MenuPrincipal {
                         scanner.nextLine();
                         System.out.print("Novo Nome: ");
                         String novoNome = scanner.nextLine();
-                        usuarioDAO.atualizarUsuario(new Usuario(idUsuario, novoNome, null));
+                        usuarioBO.atualizarUsuario(new Usuario(idUsuario, novoNome, null));
                         break;
                     case 8:
                         System.out.print("ID do Usuário: ");
                         int idUsuarioDelete = scanner.nextInt();
-                        usuarioDAO.deletarUsuario(idUsuarioDelete);
+                        usuarioBO.deletarUsuario(idUsuarioDelete);
                         break;
                     case 0:
                         System.out.println("Saindo...");
@@ -90,8 +90,8 @@ public class MenuPrincipal {
                     default:
                         System.out.println("Opção inválida!");
                 }
-            } catch (SQLException e) {
-                System.err.println("Erro no banco de dados: " + e.getMessage());
+            } catch (SQLException | UsuarioNaoEncontradoException e) {
+                System.err.println("Erro: " + e.getMessage());
             }
         }
     }
