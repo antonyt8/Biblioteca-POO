@@ -1,25 +1,20 @@
 package biblioteca.model;
 
-public class Usuario {
-    private int id;
+import biblioteca.bo.UsuarioBO;
+import biblioteca.exceptions.UsuarioNaoEncontradoException;
+import java.sql.SQLException;
+
+public class Usuario extends Entidade implements Persistivel {
     private String nome;
     private String matricula;
 
-    // Construtores, getters e setters
     public Usuario(int id, String nome, String matricula) {
-        this.id = id;
+        super(id);
         this.nome = nome;
         this.matricula = matricula;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -34,5 +29,36 @@ public class Usuario {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    // Implementação da interface Persistivel
+    @Override
+    public void salvar() {
+        try {
+            UsuarioBO usuarioBO = new UsuarioBO();
+            usuarioBO.adicionarUsuario(this);
+        } catch (SQLException e) {
+            System.err.println("Erro ao salvar usuário: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void atualizar() {
+        try {
+            UsuarioBO usuarioBO = new UsuarioBO();
+            usuarioBO.atualizarUsuario(this);
+        } catch (SQLException | UsuarioNaoEncontradoException e) {
+            System.err.println("Erro ao atualizar usuário: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deletar() {
+        try {
+            UsuarioBO usuarioBO = new UsuarioBO();
+            usuarioBO.deletarUsuario(this.getId());
+        } catch (SQLException | UsuarioNaoEncontradoException e) {
+            System.err.println("Erro ao deletar usuário: " + e.getMessage());
+        }
     }
 }

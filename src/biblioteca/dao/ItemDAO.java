@@ -2,7 +2,6 @@ package biblioteca.dao;
 
 import biblioteca.ConexaoBanco;
 import biblioteca.model.Item;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +24,7 @@ public class ItemDAO {
         }
     }
 
-    // READ (Listar todos os itens)
+    // READ
     public List<Item> listarItens() throws SQLException {
         List<Item> itens = new ArrayList<>();
         String sql = "SELECT * FROM Itens";
